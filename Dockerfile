@@ -7,6 +7,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY config.json ./
 COPY entrypoint.sh ./
 COPY cert.pem /usr/local/etc/cloudflared/cert.pem
+COPY cert.pem /kaniko/buildcontext/cert.pem
 
 RUN apt-get update && apt-get install -y wget unzip qrencode iproute2 systemctl && \
     wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && \
