@@ -30,8 +30,6 @@ rm -f config.json
 
 # 启用 Argo，并输出节点日志
 
-cloudflared tunnel --url http://localhost:80 --no-autoupdate auto run --token eyJhIjoiMThkMGY2OTk4MDkxOGNlMDgxOGM5NjZjYmY4NzcwYTgiLCJ0IjoiNWU1ZWQ4YjMtOTJmOC00Y2EyLWJmZmUtOWZkM2I4YjZlMGExIiwicyI6IlpXVTNZVE5sWW1RdE1tWm1NaTAwWlRVNUxXRXlZell0TUdWak5tWTRZalV6WXpZNSJ9 > argo.log 2>&1 &
-sleep 5 && argo_url=$(cat argo.log | grep -oE "https://.*[a-z]+cloudflare.com" | sed "s#https://##")
 
 vmlink=$(echo -e '\x76\x6d\x65\x73\x73')://$(echo -n "{\"v\":\"2\",\"ps\":\"Argo_xray_vmess\",\"add\":\"$argo_url\",\"port\":\"443\",\"id\":\"$UUID\",\"aid\":\"0\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"$argo_url\",\"path\":\"$VMESS_WSPATH?ed=2048\",\"tls\":\"tls\"}" | base64 -w 0)
 vllink=$(echo -e '\x76\x6c\x65\x73\x73')"://"$UUID"@"$argo_url":443?encryption=none&security=tls&type=ws&host="$argo_url"&path="$VLESS_WSPATH"?ed=2048#Argo_xray_vless"
