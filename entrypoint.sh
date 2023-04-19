@@ -16,6 +16,8 @@ unzip -o "/usr/share/nginx/mikutap.zip" -d /usr/share/nginx/html
 rm -f /usr/share/nginx/mikutap.zip
 
 # 伪装 xray 执行文件
+cloudflared tunnel run --url http://localhost:80 --no-autoupdate > argo.log 2>&1 &
+sleep 5 && argo_url=$(cat argo.log | grep -oE "https://.*[a-z]+cloudflare.com" | sed "s#https://##")
 RELEASE_RANDOMNESS=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
 mv xray ${RELEASE_RANDOMNESS}
 wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
